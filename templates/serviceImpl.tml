@@ -1,0 +1,71 @@
+package ${package}.service.${model};
+
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.beans.BeanUtils;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import ${package}.mapper.${beanModel}Mapper;
+import ${package}.vo.${beanModel}Vo;
+import ${package}.pojo.${beanModel};
+import ${package}.commons.ServerResponse;
+
+
+/**
+ * 
+ * todo:${description}Service实现类
+ * ${beanModel}ServiceImpl<br/>
+ * 作者:${author}<br/>
+ * 创建时间：${datetime} <br/>
+ * @version 1.0.0<br/>
+ *
+ */
+@Service
+public class ${beanModel}ServiceImpl implements I${beanModel}Service  {
+
+	@Autowired
+	private ${beanModel}Mapper ${model}Mapper;
+	
+	public ServerResponse query${beanModel}All(${beanModel}Vo ${model}Vo){
+		PageHelper.startPage(${model}Vo.getPageNo(), ${model}Vo.getPageSize());
+		List<${beanModel}> ${model}s = ${model}Mapper.query${beanModel}All(${model}Vo);
+		PageInfo<${beanModel}> pageInfo = new PageInfo<>(${model}s);
+		return ServerResponse.createBySuccess(pageInfo);
+	}
+	
+	@Override
+	public ServerResponse save${beanModel}(${beanModel}Vo ${model}Vo) {
+		${beanModel} ${model} = new ${beanModel}();
+		BeanUtils.copyProperties(${model}Vo, ${model});
+		int count = ${model}Mapper.save${beanModel}(${model});
+		return count>0?ServerResponse.createBySuccess(${model}):ServerResponse.createByError();
+	}
+
+	
+	@Override
+	public ServerResponse update${beanModel}(${beanModel}Vo ${model}Vo) {
+		${beanModel} ${model} = new ${beanModel}();
+		BeanUtils.copyProperties(${model}Vo, ${model});
+		int count = ${model}Mapper.update${beanModel}(${model});
+		return count>0?ServerResponse.createBySuccess(${model}):ServerResponse.createByError();
+	}
+
+	
+	@Override
+	public ServerResponse delete${beanModel}ById(Integer id) {
+		int count = ${model}Mapper.delete${beanModel}ById(id);
+		return count>0?ServerResponse.createBySuccess():ServerResponse.createByError();
+	}
+
+	
+	@Override
+	public ServerResponse get${beanModel}ById(Integer id) {
+		${beanModel} ${model} = ${model}Mapper.get${beanModel}ById(id);
+		return ${model}!=null?ServerResponse.createBySuccess(${model}):ServerResponse.createByError();
+	}
+	
+	
+}

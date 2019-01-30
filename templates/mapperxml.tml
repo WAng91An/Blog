@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="${package}.mapper.${beanModel}Mapper" >
+	  <#--<resultMap id="BaseResultMap" type="${package}.pojo.${beanModel}" >
+	    <constructor>
+	     <#list fields as data>
+	 	<#if data.name=="id">
+	      <idArg column="${data.column}" jdbcType="${data.dtype}" javaType="${data.type}" />
+	 	<#else>
+	      <arg column="${data.column}" jdbcType="${data.dtype}" javaType="${data.type}" />
+	 	</#if>
+	     </#list>
+	    </constructor>
+	  </resultMap>-->
+  
+ 	 <resultMap id="BaseResultMap" type="${package}.pojo.${beanModel}" >
+	    <#list fields as data>
+	 	<#if data.name=="id">
+	      <id property="${data.name}" column="${data.column}" jdbcType="${data.dtype}" javaType="${data.type}" />
+	 	<#else>
+	      <result property="${data.name}" column="${data.column}" jdbcType="${data.dtype}" javaType="${data.type}" />
+	 	</#if>
+	    </#list>
+  	</resultMap>
+  
+  	<sql id="Base_Column_List">
+  		<#list fields as data>${data.column}${(data_index <fields?size-1)?string(",","")}</#list>
+  	</sql>
+  	
+  	<select id="query${beanModel}All" resultMap="BaseResultMap" parameterType="${package}.vo.${beanModel}Vo">
+  		SELECT
+			<include refid="Base_Column_List"></include>
+		FROM
+			${tablename}
+		<where>
+		<#list fields as data>
+		<#if data.ctype=="Date">
+			 <if test="${data.name}!=null"> and ${data.column} = now()</if>
+		<#elseif data.ctype=="String">
+			 <if test="${data.name}!=null and ${data.column}!=''"> and ${data.column} = ${kuohao(data.name+',jdbcType='+data.dtype)}</if>
+		<#else>
+			 <if test="${data.name}!=null"> and ${data.column} = ${kuohao(data.name+',jdbcType='+data.dtype)}</if>
+		</#if>
+		</#list>
+		</where>	
+  	</select>
+  
+  	<select id="get${beanModel}ById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  		SELECT
+			<include refid="Base_Column_List"></include>
+		FROM
+			${tablename}
+		WHERE
+			id = ${kuohao("id,jdbcType=INTEGER")}
+  	</select>
+  	
+  	<insert id="save${beanModel}" flushCache="true" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+  		insert into ${tablename} (<#list fields as data><#if data.name!='id'>${data.column}${(data_index <fields?size-1)?string(",","")}</#if></#list>)values(<#list fields as data><#if data.name!='id'><#if data.ctype=="Date">now()<#else>${kuohao(data.name+',jdbcType='+data.dtype)}</#if>${(data_index <fields?size-1)?string(",","")}</#if></#list>)
+  	</insert>
+  	
+  	<update id="update${beanModel}" parameterType="${package}.pojo.${beanModel}" flushCache="true">
+  		update ${tablename} 
+  		<set>
+		<#list fields as data>
+		<#if data.ctype=="Date">
+			<if test="${data.name}!=null">${data.column} = now(),</if>
+		<#elseif data.ctype=="String">
+			<if test="${data.name}!=null and ${data.name}!=''">${data.column} = ${kuohao(data.name+',jdbcType='+data.dtype)},</if>
+		<#else>
+			<if test="${data.name}!=null">${data.column} = ${kuohao(data.name+',jdbcType='+data.dtype)},</if>
+		</#if>
+		</#list>
+  		</set>
+  		where id = ${kuohao("id ,jdbcType=INTEGER")}
+  	</update>
+  	
+  	<delete id="delete${beanModel}ById" flushCache="true">
+  		delete from ${tablename} where id = ${kuohao("id,jdbcType=INTEGER")}
+  	</delete>
+  	
+ </mapper>	

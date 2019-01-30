@@ -1,0 +1,77 @@
+package ${package}.service.${model};
+
+import ${package}.commons.ServerResponse;
+import ${package}.vo.${beanModel}Vo;
+
+public interface I${beanModel}Service {
+	
+	/**
+	 * 
+	 *  保存${description}
+	 * 方法名：save${beanModel}<br/>
+	 * 创建人：${author} <br/>
+	 * 时间：2018年9月26日-下午7:11:44 <br/>
+	 * 手机:1564545646464<br/>
+	 * @param ${model}
+	 * @return ServerResponse<br/>
+	 * @exception <br/>
+	 * @since  1.0.0<br/>
+	 */
+	public ServerResponse save${beanModel}(${beanModel}Vo ${model}Vo);
+	
+	/**
+	 * 
+	 * (修改${description})<br/>
+	 * 方法名：update${beanModel}<br/>
+	 * 创建人：${author} <br/>
+	 * 时间：${datetime} <br/>
+	 * 手机:1564545646464<br/>
+	 * @param ${model}
+	 * @return ServerResponse<br/>
+	 * @exception <br/>
+	 * @since  1.0.0<br/>
+	 */
+	public ServerResponse update${beanModel}(${beanModel}Vo ${model}Vo);
+	
+	/**
+	 * 
+	 * (根据id删除${description})<br/>
+	 * 方法名：delete${beanModel}ById<br/>
+	 * 创建人：${author} <br/>
+	 * 时间：${datetime} <br/>
+	 * 手机:1564545646464<br/>
+	 * @param id
+	 * @return ServerResponse<br/>
+	 * @exception <br/>
+	 * @since  1.0.0<br/>
+	 */
+	public ServerResponse delete${beanModel}ById(Integer id);
+	
+	/**
+	 * 
+	 * (根据id获取${description})<br/>
+	 * 方法名：get${beanModel}ById<br/>
+	 * 创建人：${author} <br/>
+	 * 时间：${datetime} <br/>
+	 * 手机:1564545646464<br/>
+	 * @param id
+	 * @return ServerResponse<br/>
+	 * @exception <br/>
+	 * @since  1.0.0<br/>
+	 */
+	public ServerResponse get${beanModel}ById(Integer id);
+	
+	/**
+	 * 
+	 * (查询所有的${description})<br/>
+	 * 方法名：query${beanModel}All<br/>
+	 * 创建人：${author} <br/>
+	 * 时间：${datetime} <br/>
+	 * 手机:1564545646464<br/>
+	 * @param param
+	 * @return ServerResponse<br/>
+	 * @exception <br/>
+	 * @since  1.0.0<br/>
+	 */
+	public ServerResponse query${beanModel}All(${beanModel}Vo ${model}Vo);
+}

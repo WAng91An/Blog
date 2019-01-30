@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html class="theme-next use-motion">
+<head>
+	<meta charset="UTF-8">
+	${Include('commons/header.html')}
+	<title>${description}-中华墨风 -'s Zone</title>
+	<meta name="description" content="${description}">
+	<meta name="keywords" content="">
+</head>
+<body title="双击拉开详情">
+	${Include('index/header.html')}
+	${Include('commons/footer.html')}
+	${Include('commons/js.html')}
+	<script type="text/javascript" src="${basePath}/js/page/jquery.page.js"></script>
+	<script type="text/javascript" src="${basePath}/js/main/${model}.js"></script>
+</body>
+</html>

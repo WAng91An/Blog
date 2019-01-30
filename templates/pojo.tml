@@ -1,0 +1,62 @@
+package ${package}.pojo;
+
+import java.util.Date;
+
+public class ${beanModel} {
+	
+	<#list fields as data>
+    private ${data.ctype} ${data.name};
+    </#list>
+    
+    public ${beanModel}() {
+        super();
+    }
+    
+    public ${beanModel}(<#list fields as data>${data.ctype} ${data.name}${(data_index <fields?size-1)?string(",","")}</#list>) {
+        super();
+        <#list fields as data>
+        this.${data.name} = ${data.name};
+        </#list>
+    }
+    
+	<#list fields as data>
+    public ${data.ctype} get${data.hname}() {
+        return ${data.name};
+    }
+
+    public void set${data.hname}(${data.ctype} ${data.name}) {
+        this.${data.name} = ${data.name};
+    }
+ 	</#list>
+ 	
+ 	public String toString(<#list fields as data>${data.ctype} ${data.name}${(data_index <fields?size-1)?string(",","")}</#list>) {
+        return "${beanModel}:【<#list fields as data>this.${data.name}:"+${data.name}+"${(data_index <fields?size-1)?string(",","")}</#list>】";
+    }
+    
+    public static class ${beanModel}Builder{
+ 	   
+ 	    <#list fields as data>
+	    private ${data.ctype} ${data.name};
+	    </#list>
+
+ 	    public String toString(){
+ 	    	 return "${beanModel}.${beanModel}Builder:【<#list fields as data>this.${data.name}:"+${data.name}+"${(data_index <fields?size-1)?string(",","")}</#list>】";
+ 	    }
+
+ 	    public ${beanModel} build(){
+ 	      return new ${beanModel}(<#list fields as data>${data.name}${(data_index <fields?size-1)?string(",","")}</#list>);
+ 	    }
+
+		<#list fields as data>
+ 	    public ${beanModel}Builder ${data.name}(${data.ctype} ${data.name}){
+ 	      this.${data.name} = ${data.name};
+ 	      return this;
+ 	    }
+ 	    
+ 	    </#list>
+ 	  }
+
+ 	  public static ${beanModel}.${beanModel}Builder builder(){
+ 	    return new ${beanModel}.${beanModel}Builder();
+ 	  }
+}

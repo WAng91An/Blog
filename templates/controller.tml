@@ -1,0 +1,146 @@
+package ${package}.controller.${model};
+
+import javax.validation.Valid;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import ${package}.vo.${beanModel}Vo;
+import ${package}.service.${model}.I${beanModel}Service;
+import ${package}.commons.ServerResponse;
+
+/**
+ * 
+ * todo:${description}Controller控制器类
+ * ${beanModel}Controller<br/>
+ * 作者:${author}<br/>
+ * 创建时间：${datetime} <br/>
+ * @version 1.0.0<br/>
+ *
+ */
+@Controller
+public class ${beanModel}Controller {
+	
+	@Autowired
+	private I${beanModel}Service ${model}Service;
+	
+	@GetMapping("/${model}")
+	public String ${model}index() {
+		return "${model}/index";
+	}
+
+	/**
+	 * 方法名：${model}detail<br/>
+	 * 创建人：mofeng <br/>
+	 * 时间：${datetime} <br/>
+	 * 手机:${phone}<br/>
+	 * @param id
+	 * @param map
+	 * @return String<br/>
+	 * @exception <br/>
+	 * @since  1.0.0<br/>
+	 */
+	@GetMapping("/${model}/{id}")
+	public String ${model}detail(@PathVariable("id") Integer id,ModelMap map) {
+		map.addAttribute("id", id);
+		return "${model}/detail";
+	}
+	
+	
+	/**
+	 * 模板方法，提供给分页使用
+	 * 方法名：template<br/>
+	 * 创建人：mofeng <br/>
+	 * 时间：${datetime} <br/>
+	 * 手机:${phone}<br/>
+	 * @param params
+	 * @param map
+	 * @return String<br/>
+	 * @exception <br/>
+	 * @since  1.0.0<br/>
+	 */
+	@PostMapping("/${model}/template")
+	public String template(${beanModel}Vo ${model}Vo,ModelMap map) {
+		ServerResponse serverResponse = ${model}Service.query${beanModel}All(${model}Vo);
+		map.addAttribute("pages", serverResponse.getData());
+		return "${model}/template";
+	}
+	
+	
+	/**
+	 * 根据id查询信息
+	 * 方法名：get${beanModel}<br/>
+	 * 创建人：mofeng <br/>
+	 * 时间：${datetime} <br/>
+	 * 手机:${phone}<br/>
+	 * @param id
+	 * @return ServerResponse<br/>
+	 * @exception <br/>
+	 * @since  1.0.0<br/>
+	 */
+	@ResponseBody
+	@GetMapping("/${model}/get/{id}")
+	public ServerResponse get${beanModel}(@PathVariable("id") Integer id) {
+		return ${model}Service.get${beanModel}ById(id);
+	}
+	
+	
+	/**
+	 * 保存
+	 * 方法名：save${beanModel}<br/>
+	 * 创建人：mofeng <br/>
+	 * 时间：${datetime}<br/>
+	 * 手机:${phone}<br/>
+	 * @param ${model}Vo
+	 * @return ServerResponse<br/>
+	 * @exception <br/>
+	 * @since  1.0.0<br/>
+	 */
+	@ResponseBody
+	@PostMapping("/${model}/save")
+	public ServerResponse save${beanModel}(@Valid ${beanModel}Vo ${model}Vo) {
+		return ${model}Service.save${beanModel}(${model}Vo);
+	}
+	
+	/**
+	 * 修改
+	 * 方法名：update${beanModel}<br/>
+	 * 创建人：mofeng <br/>
+	 * 时间：${datetime} <br/>
+	 * 手机:${phone}<br/>
+	 * @param ${model}Vo
+	 * @return ServerResponse<br/>
+	 * @exception <br/>
+	 * @since  1.0.0<br/>
+	 */
+	@ResponseBody
+	@PostMapping("/${model}/update")
+	public ServerResponse update${beanModel}(@Valid ${beanModel}Vo ${model}Vo) {
+		return ${model}Service.update${beanModel}(${model}Vo);
+	}
+	
+	
+	/**
+	 * 删除
+	 * 方法名：delete${beanModel}<br/>
+	 * 创建人：mofeng <br/>
+	 * 时间：${datetime} <br/>
+	 * 手机:${phone}<br/>
+	 * @param id
+	 * @return ServerResponse<br/>
+	 * @exception <br/>
+	 * @since  1.0.0<br/>
+	 */
+	@ResponseBody
+	@PostMapping("/${model}/delete/{id}")
+	public ServerResponse delete${beanModel}(@PathVariable("id") Integer id) {
+		return ${model}Service.delete${beanModel}ById(id);
+	}
+	
+}

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wrq.mapper.BlogMapper" >
+  
+ 	 <resultMap id="BaseResultMap" type="com.wrq.pojo.Blog" >
+	      <id property="id" column="id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+	      <result property="title" column="title" jdbcType="VARCHAR" javaType="java.lang.String" />
+	      <result property="categoryId" column="category_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+	      <result property="description" column="description" jdbcType="VARCHAR" javaType="java.lang.String" />
+	      <result property="userId" column="user_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+	      <result property="createTime" column="create_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+	      <result property="updateTime" column="update_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+	      <result property="status" column="status" jdbcType="INTEGER" javaType="java.lang.Integer" />
+	      <result property="isDelete" column="is_delete" jdbcType="INTEGER" javaType="java.lang.Integer" />
+	      <result property="img" column="img" jdbcType="VARCHAR" javaType="java.lang.String" />
+	      <result property="tags" column="tags" jdbcType="VARCHAR" javaType="java.lang.String" />
+	      <result property="isTop" column="is_top" jdbcType="INTEGER" javaType="java.lang.Integer" />
+	      <result property="isHot" column="is_hot" jdbcType="INTEGER" javaType="java.lang.Integer" />
+	      <result property="content" column="content" jdbcType="LONGVARCHAR" javaType="java.lang.String" />
+  	</resultMap>
+  
+  	<sql id="Base_Column_List">
+  		id,title,category_id,description,user_id,create_time,update_time,status,is_delete,img,tags,is_top,is_hot,content
+  	</sql>
+  	
+  	<select id="queryBlogAll" resultMap="BaseResultMap" parameterType="com.wrq.vo.BlogVo">
+  		SELECT
+			<include refid="Base_Column_List"></include>
+		FROM
+			blog
+		<where>
+			 <if test="id!=null"> and id = #{id,jdbcType=INTEGER}</if>
+			 <if test="title!=null and title!=''"> and title = #{title,jdbcType=VARCHAR}</if>
+			 <if test="categoryId!=null"> and category_id = #{categoryId,jdbcType=INTEGER}</if>
+			 <if test="description!=null and description!=''"> and description = #{description,jdbcType=VARCHAR}</if>
+			 <if test="userId!=null"> and user_id = #{userId,jdbcType=INTEGER}</if>
+			 <if test="createTime!=null"> and create_time = now()</if>
+			 <if test="updateTime!=null"> and update_time = now()</if>
+			 <if test="status!=null"> and status = #{status,jdbcType=INTEGER}</if>
+			 <if test="isDelete!=null"> and is_delete = #{isDelete,jdbcType=INTEGER}</if>
+			 <if test="img!=null and img!=''"> and img = #{img,jdbcType=VARCHAR}</if>
+			 <if test="tags!=null and tags!=''"> and tags = #{tags,jdbcType=VARCHAR}</if>
+			 <if test="isTop!=null"> and is_top = #{isTop,jdbcType=INTEGER}</if>
+			 <if test="isHot!=null"> and is_hot = #{isHot,jdbcType=INTEGER}</if>
+			 <if test="content!=null and content!=''"> and content = #{content,jdbcType=LONGVARCHAR}</if>
+		</where>	
+  	</select>
+  
+  	<select id="getBlogById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  		SELECT
+			<include refid="Base_Column_List"></include>
+		FROM
+			blog
+		WHERE
+			id = #{id,jdbcType=INTEGER}
+  	</select>
+  	
+  	<insert id="saveBlog" flushCache="true" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+  		insert into blog (title,category_id,description,user_id,create_time,update_time,status,is_delete,img,tags,is_top,is_hot,content)values(#{title,jdbcType=VARCHAR},#{categoryId,jdbcType=INTEGER},#{description,jdbcType=VARCHAR},#{userId,jdbcType=INTEGER},now(),now(),#{status,jdbcType=INTEGER},#{isDelete,jdbcType=INTEGER},#{img,jdbcType=VARCHAR},#{tags,jdbcType=VARCHAR},#{isTop,jdbcType=INTEGER},#{isHot,jdbcType=INTEGER},#{content,jdbcType=LONGVARCHAR})
+  	</insert>
+  	
+  	<update id="updateBlog" parameterType="com.wrq.pojo.Blog" flushCache="true">
+  		update blog 
+  		<set>
+			<if test="id!=null">id = #{id,jdbcType=INTEGER},</if>
+			<if test="title!=null and title!=''">title = #{title,jdbcType=VARCHAR},</if>
+			<if test="categoryId!=null">category_id = #{categoryId,jdbcType=INTEGER},</if>
+			<if test="description!=null and description!=''">description = #{description,jdbcType=VARCHAR},</if>
+			<if test="userId!=null">user_id = #{userId,jdbcType=INTEGER},</if>
+			<if test="createTime!=null">create_time = now(),</if>
+			<if test="updateTime!=null">update_time = now(),</if>
+			<if test="status!=null">status = #{status,jdbcType=INTEGER},</if>
+			<if test="isDelete!=null">is_delete = #{isDelete,jdbcType=INTEGER},</if>
+			<if test="img!=null and img!=''">img = #{img,jdbcType=VARCHAR},</if>
+			<if test="tags!=null and tags!=''">tags = #{tags,jdbcType=VARCHAR},</if>
+			<if test="isTop!=null">is_top = #{isTop,jdbcType=INTEGER},</if>
+			<if test="isHot!=null">is_hot = #{isHot,jdbcType=INTEGER},</if>
+			<if test="content!=null and content!=''">content = #{content,jdbcType=LONGVARCHAR},</if>
+  		</set>
+  		where id = #{id ,jdbcType=INTEGER}
+  	</update>
+  	
+  	<delete id="deleteBlogById" flushCache="true">
+  		delete from blog where id = #{id,jdbcType=INTEGER}
+  	</delete>
+  	
+ </mapper>	

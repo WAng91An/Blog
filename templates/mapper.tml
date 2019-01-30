@@ -1,0 +1,30 @@
+package ${package}.mapper;
+
+import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+
+import ${package}.vo.${beanModel}Vo;
+import ${package}.pojo.${beanModel};
+
+/**
+ * 
+ * todo:${description}
+ * ${beanModel}<br/>
+ * 创建人:${author}<br/>
+ * 时间：${datetime} <br/>
+ * @version 1.0.0<br/>
+ *
+ */
+public interface ${beanModel}Mapper {
+	//添加
+	public int save${beanModel}(${beanModel} ${model});
+	//修改
+	public int update${beanModel}(${beanModel} ${model});
+	//删除
+	public int delete${beanModel}ById(@Param("id")Integer id);
+	//查询单个
+	public ${beanModel} get${beanModel}ById(@Param("id")Integer id);
+	//查询所有
+	public List<${beanModel}> query${beanModel}All(${beanModel}Vo ${model}Vo);
+}

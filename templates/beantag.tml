@@ -1,0 +1,61 @@
+package ${package}.tag.${model};
+
+import java.io.IOException;
+import java.util.Map;
+
+import javax.servlet.ServletContext;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.stereotype.Component;
+import org.springframework.web.context.ServletContextAware;
+import org.springframework.web.context.support.WebApplicationContextUtils;
+
+import ${package}.service.${model}.${beanModel}ServiceImpl;
+import ${package}.service.${model}.I${beanModel}Service;
+import ${package}.tag.TmTemplateDirectiveModelUtil;
+import ${package}.util.TmStringUtils;
+
+import freemarker.core.Environment;
+import freemarker.ext.beans.BeansWrapperBuilder;
+import freemarker.template.Configuration;
+import freemarker.template.TemplateDirectiveBody;
+import freemarker.template.TemplateDirectiveModel;
+import freemarker.template.TemplateException;
+import freemarker.template.TemplateModel;
+
+/**
+ * ${description}
+  ${beanModel}BeanTag
+  *  创建人:${author} 
+  *  时间：${datetime}
+ * @version 1.0.0
+ *
+ */
+@Component("${model}Bean")
+public class ${beanModel}BeanTag implements TemplateDirectiveModel ,ServletContextAware {
+	private ServletContext servletContext;
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	public void execute(Environment env, Map params, TemplateModel[] loopVars,
+			TemplateDirectiveBody body) throws TemplateException, IOException {
+		ApplicationContext applicationContext = WebApplicationContextUtils.getWebApplicationContext(servletContext);
+		I${beanModel}Service ${model}Service = (I${beanModel}Service) applicationContext.getBean(${beanModel}ServiceImpl.class);
+		String var = TmTemplateDirectiveModelUtil.getString("var", params);
+		Integer id = TmTemplateDirectiveModelUtil.getInteger("id", params);
+		if(TmStringUtils.isEmpty(var))var="${model}";
+		Map<String, Object> ${model} = (Map<String, Object>) ${model}Service.get${beanModel}ById(id).getData();
+		if (${model} != null) {
+			env.setVariable(var, new BeansWrapperBuilder(Configuration.VERSION_2_3_28).build().wrap(${model}));
+		}
+
+		if (body != null) {
+			if (${model} != null) {
+				body.render(env.getOut());
+			}
+		}
+	}
+	
+	@Override
+	public void setServletContext(ServletContext servletContext) {
+		this.servletContext = servletContext;
+	}
+}

@@ -110,7 +110,7 @@ public class TmStringUtils {
 	
 	/**
 	 * 
-	 * common-lang3.jar 
+	 * commons-lang3.jar
 	 * @param string
 	 * @return 判断一个字符串是否为NULL或者是是否为"" 用法： StringUtils.isEmpty(NULL) 结果:true
 	 *         StringUtils.isEmpty("") 结果:true StringUtils.isEmpty(" ") 结果:false
@@ -735,10 +735,10 @@ public class TmStringUtils {
 			}
 			return strs[0];
 		} else if (smallestIndexOfDiff == 0) {
-			// there were no common initial characters
+			// there were no commons initial characters
 			return "";
 		} else {
-			// we found a common initial character sequence
+			// we found a commons initial character sequence
 			return strs[0].substring(0, smallestIndexOfDiff);
 		}
 	}

@@ -1,0 +1,11 @@
+CREATE TABLE `rumo_[model]` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(100) DEFAULT NULL,
+  `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `update_time` datetime DEFAULT NULL,
+  `is_delete` int(1) DEFAULT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `status` int(1) DEFAULT NULL,
+  `content` text,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8
