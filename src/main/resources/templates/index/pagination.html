@@ -1,11 +1,41 @@
-<div class="container">
+<!--   分页逻辑   -->
+<div class="container" xmlns:v-bind="http://www.w3.org/1999/xhtml">
     <div class="row">
         <div class="col-lg-10 col-md-10 col-md-offset-1">
             <ul class="pagination">
-                <li class="next">
-                    <a href="/page/2/">
-                        <span>下一页</span>
+
+                <!--  首页按钮   -->
+                <li class="firstPage" :class="{disabled: isFirstPage}">
+                    <a @click="handleFirstPage">
+                        <span>首页</span>
+                    </a>
+                </li>
+
+                <!--  左箭头按钮   -->
+                <li :class="{disabled: notHasPreviousPage}">
+                    <a @click="handleLeftClick">
+                        <span class="symbol-left">&lt;</span>
+                    </a>
+                </li>
+
+                <!--  数字   -->
+                <li  v-for="(item, index) of navigatepageNums" :key="index" :class="{ active: isActive(item) }">
+                    <a @click="handleNumber(item)">
+                        <span>{{item}}</span>
+                    </a>
+                </li>
+
+                <!--  右箭头按钮   -->
+                <li :class="{disabled: notHasNextPage}">
+                    <a @click="handleRightClick">
                         <span class="symbol-right">&gt;</span>
+                    </a>
+                </li>
+
+                <!-- 尾页按钮   -->
+                <li class="lastPage" :class="{disabled: isLastPage}">
+                    <a @click="handleLastPage">
+                        <span>尾页</span>
                     </a>
                 </li>
 

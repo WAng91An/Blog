@@ -1,7 +1,9 @@
 package com.wrq.mapper;
 
 import java.util.List;
+import java.util.Map;
 
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import com.wrq.vo.BlogVo;
@@ -18,13 +20,15 @@ import com.wrq.pojo.Blog;
  */
 public interface BlogMapper {
 	//添加
-	public int saveBlog(Blog blog);
+	int saveBlog(Blog blog);
 	//修改
-	public int updateBlog(Blog blog);
+	int updateBlog(Blog blog);
 	//删除
-	public int deleteBlogById(@Param("id")Integer id);
+	int deleteBlogById(@Param("id")Integer id);
 	//查询单个
-	public Blog getBlogById(@Param("id")Integer id);
+	Blog getBlogById(@Param("id")Integer id);
 	//查询所有
-	public List<Blog> queryBlogAll(BlogVo blogVo);
+	List<Blog> queryBlogAll(BlogVo blogVo);
+	//查询博客首页信息，插件
+	List<Map<String, Object>> queryBlogs();
 }

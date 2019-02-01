@@ -10,16 +10,22 @@
 </head>
 
 <body>
-    <!-- Home Header -->
-    <#include "index/header.html"/>
-    <!-- Home Page Post List -->
-    <#include "index/container.html"/>
-    <!-- Pagination -->
-    <#include "index/pagination.html"/>
-    <!--引入 footer-->
-    <#include "commons/footer.html"/>
+
+    <div id="app">
+        <!-- Home Header -->
+        <#include "index/header.html"/>
+        <!-- Home Page Post List -->
+        <#include "index/container.html"/>
+        <!-- Pagination -->
+        <#include "index/pagination.html"/>
+        <!--引入 footer-->
+        <#include "commons/footer.html"/>
+    </div>
+
     <!--引入js-->
     <#include "commons/js.html"/>
+
+    <script src="/js/index/main.js"></script>
 </body>
 </html>
 

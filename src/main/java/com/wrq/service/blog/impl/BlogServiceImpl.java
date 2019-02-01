@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -34,7 +35,21 @@ public class BlogServiceImpl implements IBlogService  {
 		PageInfo<Blog> pageInfo = new PageInfo<>(blogs);
 		return ServerResponse.createBySuccess(pageInfo);
 	}
-	
+
+	/**
+	 * 查询首页博客信息，分页插件
+	 * @param pageNum
+	 * @param pageSize
+     * @return
+     */
+	@Override
+	public ServerResponse queryBlogs(Integer pageNum, Integer pageSize) {
+		PageHelper.startPage(pageNum, pageSize);
+		List<Map<String, Object>> list = blogMapper.queryBlogs();
+		PageInfo info = new PageInfo(list);
+		return ServerResponse.createBySuccess("请求成功", info);
+	}
+
 	@Override
 	public ServerResponse saveBlog(BlogVo blogVo) {
 		Blog blog = new Blog();

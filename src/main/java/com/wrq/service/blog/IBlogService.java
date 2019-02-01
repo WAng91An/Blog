@@ -5,13 +5,15 @@ import com.wrq.vo.BlogVo;
 
 public interface IBlogService {
 	
-	public ServerResponse saveBlog(BlogVo blogVo);
+	ServerResponse saveBlog(BlogVo blogVo);
 	
-	public ServerResponse updateBlog(BlogVo blogVo);
+	ServerResponse updateBlog(BlogVo blogVo);
 	
-	public ServerResponse deleteBlogById(Integer id);
+	ServerResponse deleteBlogById(Integer id);
 	
-	public ServerResponse getBlogById(Integer id);
+	ServerResponse getBlogById(Integer id);
 	
-	public ServerResponse queryBlogAll(BlogVo blogVo);
+	ServerResponse queryBlogAll(BlogVo blogVo);
+
+	ServerResponse queryBlogs(Integer pageNum, Integer pageSize);
 }

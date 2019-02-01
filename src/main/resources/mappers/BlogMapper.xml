@@ -45,7 +45,16 @@
 			 <if test="content!=null and content!=''"> and content = #{content,jdbcType=LONGVARCHAR}</if>
 		</where>	
   	</select>
-  
+
+	<select id="queryBlogs" resultType="map">
+		SELECT b.id, b.title, b.description, b.user_id AS userId, b.create_time AS createTime, b.img, b.tags, b.is_top AS isTop, b.is_hot  AS isHot, ca.name AS categoryName
+		FROM  blog b
+		LEFT JOIN  category ca
+		ON b.category_id = ca.id
+		WHERE b.is_delete = 0 AND b.status = 1
+		ORDER BY b.create_time DESC
+	</select>
+
   	<select id="getBlogById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
   		SELECT
 			<include refid="Base_Column_List"></include>
@@ -56,7 +65,7 @@
   	</select>
   	
   	<insert id="saveBlog" flushCache="true" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
-  		insert into blog (title,category_id,description,user_id,create_time,update_time,status,is_delete,img,tags,is_top,is_hot,content)values(#{title,jdbcType=VARCHAR},#{categoryId,jdbcType=INTEGER},#{description,jdbcType=VARCHAR},#{userId,jdbcType=INTEGER},now(),now(),#{status,jdbcType=INTEGER},#{isDelete,jdbcType=INTEGER},#{img,jdbcType=VARCHAR},#{tags,jdbcType=VARCHAR},#{isTop,jdbcType=INTEGER},#{isHot,jdbcType=INTEGER},#{content,jdbcType=LONGVARCHAR})
+  		insert into blog (title,category_id,description,user_id,create_time,update_times,tatus,is_delete,img,tags,is_top,is_hot,content)values(#{title,jdbcType=VARCHAR},#{categoryId,jdbcType=INTEGER},#{description,jdbcType=VARCHAR},#{userId,jdbcType=INTEGER},now(),now(),#{status,jdbcType=INTEGER},#{isDelete,jdbcType=INTEGER},#{img,jdbcType=VARCHAR},#{tags,jdbcType=VARCHAR},#{isTop,jdbcType=INTEGER},#{isHot,jdbcType=INTEGER},#{content,jdbcType=LONGVARCHAR})
   	</insert>
   	
   	<update id="updateBlog" parameterType="com.wrq.pojo.Blog" flushCache="true">
