@@ -19,7 +19,7 @@
                 </li>
 
                 <!--  数字   -->
-                <li  v-for="(item, index) of navigatepageNums" :key="index" :class="{ active: isActive(item) }">
+                <li  v-for="(item, index) of navigatepageNums" :key="index" :class="{ 'active': item == pageNum }">
                     <a @click="handleNumber(item)">
                         <span>{{item}}</span>
                     </a>

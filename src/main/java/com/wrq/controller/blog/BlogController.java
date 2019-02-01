@@ -30,6 +30,12 @@ public class BlogController {
 		return "index";
 	}
 
+	/**
+	 * 博客列表接口，分页
+	 * @param pageNum
+	 * @param pageSize
+     * @return
+     */
 	@GetMapping("/blog/list")
 	@ResponseBody
 	public ServerResponse blogList(@RequestParam(value = "pageNum", defaultValue = "0", required = false)Integer pageNum ,

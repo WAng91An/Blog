@@ -30,6 +30,7 @@ var vue = new Vue({
                 this.isLastPage = res.data.isLastPage;
                 this.pages = res.data.pages;
                 this.navigatepageNums = res.data.navigatepageNums;
+                console.log(res.data.list)
             }else {
                 util.errorTips("获取博客失败，请稍后刷新重试")
             }
@@ -48,10 +49,6 @@ var vue = new Vue({
         handleNumber: function (item) {
             // 点击数字请求
             this.getBlogInfo(item, util.pageSize());
-        },
-        isActive: function(item){
-            // 当前是第几页，相应数字按钮class=active
-            return item == this.pageNum;
         },
         handleLeftClick: function () {
             // 点击左箭头按钮
