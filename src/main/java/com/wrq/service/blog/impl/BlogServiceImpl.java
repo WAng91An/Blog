@@ -4,10 +4,13 @@ package com.wrq.service.blog.impl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.wrq.mapper.BlogMapper;
+import com.wrq.mapper.UserMapper;
 import com.wrq.pojo.Blog;
+import com.wrq.pojo.User;
 import com.wrq.service.blog.IBlogService;
 import com.wrq.vo.BlogVo;
 import com.wrq.commons.ServerResponse;
+import com.wrq.vo.DetailVo;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,6 +31,9 @@ public class BlogServiceImpl implements IBlogService  {
 
 	@Autowired
 	private BlogMapper blogMapper;
+
+	@Autowired
+	private UserMapper userMapper;
 	
 	public ServerResponse queryBlogAll(BlogVo blogVo){
 		PageHelper.startPage(blogVo.getPageNo(), blogVo.getPageSize());
@@ -48,6 +54,20 @@ public class BlogServiceImpl implements IBlogService  {
 		List<Map<String, Object>> list = blogMapper.queryBlogs();
 		PageInfo info = new PageInfo(list);
 		return ServerResponse.createBySuccess("请求成功", info);
+	}
+
+	/**
+	 * 根据 id 获得博客详情
+	 * @param id
+	 * @return
+     */
+	@Override
+	public ServerResponse getBlogDetailById(Integer id) {
+		DetailVo blogDetail = blogMapper.getBlogDetailById(id);
+		Integer userId = blogDetail.getUserId();
+		User user = userMapper.getUserById(userId);
+		blogDetail.setUserName(user.getUsername());
+		return blogDetail!=null?ServerResponse.createBySuccess("获取成功", blogDetail):ServerResponse.createByError("获取博客详情失败");
 	}
 
 	@Override

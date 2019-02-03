@@ -55,6 +55,14 @@
 		ORDER BY b.create_time DESC
 	</select>
 
+	<select id="getBlogDetailById" resultType="com.wrq.vo.DetailVo" >
+		SELECT b.id, b.title, b.user_id AS userId, b.create_time AS createTime, b.img, b.tags,b.content, b.is_hot  AS isHot, ca.name AS categoryName
+		FROM  blog b
+		LEFT JOIN  category ca
+		ON b.category_id = ca.id
+		WHERE b.id = #{id}
+	</select>
+
   	<select id="getBlogById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
   		SELECT
 			<include refid="Base_Column_List"></include>

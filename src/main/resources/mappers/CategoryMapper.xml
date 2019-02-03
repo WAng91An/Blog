@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wrq.mapper.CategoryMapper" >
+  
+ 	 <resultMap id="BaseResultMap" type="com.wrq.pojo.Category" >
+	      <id property="id" column="id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+	      <result property="name" column="name" jdbcType="VARCHAR" javaType="java.lang.String" />
+	      <result property="sort" column="sort" jdbcType="INTEGER" javaType="java.lang.Integer" />
+	      <result property="createTime" column="create_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+  	</resultMap>
+  
+  	<sql id="Base_Column_List">
+  		id,name,sort,create_time
+  	</sql>
+  	
+  	<select id="queryCategoryAll" resultMap="BaseResultMap" parameterType="com.wrq.vo.CategoryVo">
+  		SELECT
+			<include refid="Base_Column_List"></include>
+		FROM
+			category
+		<where>
+			 <if test="id!=null"> and id = #{id,jdbcType=INTEGER}</if>
+			 <if test="name!=null and name!=''"> and name = #{name,jdbcType=VARCHAR}</if>
+			 <if test="sort!=null"> and sort = #{sort,jdbcType=INTEGER}</if>
+			 <if test="createTime!=null"> and create_time = now()</if>
+		</where>	
+  	</select>
+  
+  	<select id="getCategoryById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  		SELECT
+			<include refid="Base_Column_List"></include>
+		FROM
+			category
+		WHERE
+			id = #{id,jdbcType=INTEGER}
+  	</select>
+  	
+  	<insert id="saveCategory" flushCache="true" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+  		insert into category (name,sort,create_time)values(#{name,jdbcType=VARCHAR},#{sort,jdbcType=INTEGER},now())
+  	</insert>
+  	
+  	<update id="updateCategory" parameterType="com.wrq.pojo.Category" flushCache="true">
+  		update category 
+  		<set>
+			<if test="id!=null">id = #{id,jdbcType=INTEGER},</if>
+			<if test="name!=null and name!=''">name = #{name,jdbcType=VARCHAR},</if>
+			<if test="sort!=null">sort = #{sort,jdbcType=INTEGER},</if>
+			<if test="createTime!=null">create_time = now(),</if>
+  		</set>
+  		where id = #{id ,jdbcType=INTEGER}
+  	</update>
+  	
+  	<delete id="deleteCategoryById" flushCache="true">
+  		delete from category where id = #{id,jdbcType=INTEGER}
+  	</delete>
+  	
+ </mapper>	

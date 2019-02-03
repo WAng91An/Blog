@@ -3,6 +3,7 @@ package com.wrq.mapper;
 import java.util.List;
 import java.util.Map;
 
+import com.wrq.vo.DetailVo;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -31,4 +32,6 @@ public interface BlogMapper {
 	List<Blog> queryBlogAll(BlogVo blogVo);
 	//查询博客首页信息，插件
 	List<Map<String, Object>> queryBlogs();
+
+	DetailVo getBlogDetailById(@Param("id")Integer id);
 }

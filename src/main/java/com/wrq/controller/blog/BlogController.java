@@ -24,7 +24,11 @@ public class BlogController {
 	
 	@Autowired
 	private IBlogService blogService;
-	
+
+	/**
+	 * 跳转首页
+	 * @return
+     */
 	@GetMapping("/blog")
 	public String blogIndex() {
 		return "index";
@@ -44,10 +48,17 @@ public class BlogController {
 		return blogService.queryBlogs(pageNum, pageSize);
 	}
 
-
+	/**
+	 * 根据 id 请求博客详情
+	 * @param id
+	 * @param map
+     * @return
+     */
 	@GetMapping("/blog/{id}")
-	public String blogDetail(@PathVariable("id") Integer id,ModelMap map) {
-		map.addAttribute("id", id);
+	public String blogDetail(@PathVariable("id") Integer id, ModelMap map) {
+		ServerResponse detail = blogService.getBlogDetailById(id);
+		log.info("请求了 /blog/31 ");
+		map.addAttribute("detail", detail.getData());
 		return "blog/detail";
 	}
 	

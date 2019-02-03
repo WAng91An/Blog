@@ -16,4 +16,6 @@ public interface IBlogService {
 	ServerResponse queryBlogAll(BlogVo blogVo);
 
 	ServerResponse queryBlogs(Integer pageNum, Integer pageSize);
+
+	ServerResponse getBlogDetailById(Integer id);
 }

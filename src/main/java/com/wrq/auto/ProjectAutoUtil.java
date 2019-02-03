@@ -35,11 +35,11 @@ public class ProjectAutoUtil {
 
 	
 	//定义模块
-	private static	String beanModel = "Blog";
-	private static	String tablename = "blog";
+	private static	String beanModel = "User";
+	private static	String tablename = "user";
 	private static	String model = beanModel.toLowerCase();
 	private static String author = "王瑞乾";
-	private static String description = "博客";
+	private static String description = "用户";
 	private static String phone = "17854176692";
 	private static String datetime = new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss").format(new Date());
 	//获取当前项目路径

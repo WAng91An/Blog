@@ -4,84 +4,28 @@
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                 <div class="post-info text-muted">
                     <!-- Author -->
-                    <span class="author info">By Levblanc</span>
+                    <span class="author info">By ${detail.userName}</span>
                     <!-- Date -->
           <span class="date-time info">On
-            <span class="date">2015-08-16</span>
-            <span class="time">11:34:11</span>
+            <span class="date">${detail.createTime?date}</span>
+            <span class="time">${detail.createTime?time}</span>
           </span>
                     <!--  Categories  -->
             <span class="categories info">Under
 
-<a href="/categories/coding/">coding</a>
+<a href="/categories/coding/">${detail.categoryName}</a>
 </span>
 
                 </div>
                 <!-- Tags -->
                 <div class="post-tags text-muted">
                     Tags:
-                    <a class="tag" href="/tags/requirejs/">#requirejs</a> <a class="tag" href="/tags/rjs/">#rjs</a>
+                    <a class="tag" href="/tags/requirejs/">#${detail.tags}</a>
 
                 </div>
 
                 <!-- Post Main Content -->
-                <div class="post-content">
-                    <p>本篇记录的是在不适用任何自动化工具（如<a href="">Grunt</a>或<a href="">Gulp</a>）的情况下，使用r.js对项目进行打包和优化。<br>使用自动化工具时配置的方法基本大同小异，届时根据该工具所用插件的文档进行适当调整即可。</p>
-                    <a id="more"></a>
-                    <p>本机环境： </p>
-                    <ul>
-                        <li>OS: Yosemite 10.10.2 </li>
-                        <li>Git: 1.9.5</li>
-                        <li>Nodejs: 0.10.32</li>
-                        <li>requirejs: 2.1.19</li>
-                    </ul>
-                    <p>几个简单的优化目标：</p>
-                    <ul>
-                        <li>把通用库打包到一个文件</li>
-                        <li>自定义的模块按需进行合并</li>
-                        <li>js文件压缩</li>
-                    </ul>
-                    <h3 id="文件夹结构"><a href="#文件夹结构" class="headerlink" title="文件夹结构"></a>文件夹结构</h3><p>首先，我从<a href="http://requirejs.org/docs/download.html#rjs" target="_blank" rel="external">官网链接</a>找到r.js，并下载到对应文件夹中。</p>
-                    <p>当前文件夹结构如下（文件夹中的内容均与<a href="">30分钟上手RequireJS</a>的一致）：</p>
-                    <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">dev</div><div class="line">├── assets</div><div class="line">│   └── js</div><div class="line">│       ├── comm on.js  /* 此文件为空，是为了最后把通用依赖包都打包到一齐而准备的。*/</div><div class="line">│       ├── global.js</div><div class="line">│       ├── lib</div><div class="line">│       │   ├── backbone-1.1.2.min.js</div><div class="line">│       │   ├── jquery-1.11.2.min.js</div><div class="line">│       │   ├── r.js</div><div class="line">│       │   ├── requirejs-2.1.19.min.js</div><div class="line">│       │   └── underscore-1.8.3.min.js</div><div class="line">│       ├── requirejsConfig.js</div><div class="line">│       └── tipText.js</div><div class="line">├── index-modern.html</div><div class="line">├── index-old-school.html</div><div class="line">└── testRequire.js</div></pre></td></tr></table></figure>
-                    <h3 id="创建build-js"><a href="#创建build-js" class="headerlink" title="创建build.js"></a>创建build.js</h3><p>在<code>dev</code>文件夹的同层新建<code>build.js</code>文件。它是使用r.js进行优化时需要用到的配置文件。</p>
-                    <p>期望在进行优化后，文件夹结构如下：</p>
-                    <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">.</div><div class="line">├── dev</div><div class="line">├── dist   /* 最后使用r.js创建的文件夹，不需要手动创建 */</div><div class="line">└── build.js</div></pre></td></tr></table></figure>
-                    <p>接下来看看<code>build.js</code>文件常用的配置项：</p>
-                    <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">appDir: <span class="string">'dev'</span></div></pre></td></tr></table></figure>
-                    <p><code>appDir</code>顾名思义，指向的就是项目源文件的文件夹。</p>
-                    <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">baseUrl: <span class="string">'assets/js'</span></div></pre></td></tr></table></figure>
-                    <p><code>baseUrl</code>指的是模块文件的base路径。</p>
-                    <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">dir: <span class="string">'dist'</span></div></pre></td></tr></table></figure>
-                    <p><code>dir</code>指向的是优化后的文件的存放文件夹。</p>
-                    <p>所以，<code>appDir</code> 是源，<code>dir</code>是目的地。</p>
-                    <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mainConfigFile: <span class="string">'dev/assets/js/requirejsConfig.js'</span>,</div></pre></td></tr></table></figure>
-                    <p><code>mainConfigFile</code>指向的是RequireJS的配置文件，详情可见<a href="">30分钟上手RequireJS</a>。</p>
-                    <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">modules: [</div><div class="line">	<span class="comment">/* 首先定义通用的module */</span></div><div class="line">	&#123;</div><div class="line">		<span class="comment">/* 每个module的name是相对于baseUrl的路径 */</span></div><div class="line">		name: <span class="string">'common'</span>,</div><div class="line">		include: [</div><div class="line">			<span class="string">'jquery'</span>,</div><div class="line">			<span class="string">'backbone'</span>,</div><div class="line">			<span class="string">'underscore'</span>,</div><div class="line">			<span class="string">'requirejs'</span></div><div class="line">		]</div><div class="line">	&#125;,</div><div class="line">	<span class="comment">/* 下面是每一个页面需要用到的模块 */</span></div><div class="line">	<span class="comment">/* include页面依赖的模块，这里只把tipText和global合并 */</span></div><div class="line">	<span class="comment">/* exclude已经打包好的common */</span></div><div class="line">	&#123;</div><div class="line">		name: <span class="string">'tipText'</span>,</div><div class="line">		include: [<span class="string">'tipText'</span>, <span class="string">'global'</span>],</div><div class="line">		exclude: [<span class="string">'common'</span>]</div><div class="line">	&#125;</div><div class="line">]</div></pre></td></tr></table></figure>
-                    <p><code>modules</code>就是进行打包合并的重点部分。首先把通用的依赖包打包到common.js里面。再处理每一个页面需要的模块。由于已经有common这个模块，各个页面的模块中就不需要把它包含在内了。</p>
-                    <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">paths: &#123;</div><div class="line">	backbone: <span class="string">'empty:'</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-                    <p>在<code>requirejsConfig.js</code>中设置了从CDN请求的文件，必须作如下设置，否则会报错。</p>
-                    <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">optimize: <span class="string">'uglify2'</span></div></pre></td></tr></table></figure>
-                    <p><code>optimize</code>项配置的是需要使用的JS压缩引擎。</p>
-                    <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">optimizeCss: <span class="string">'standard'</span></div></pre></td></tr></table></figure>
-                    <p><code>optimizeCss</code>顾名思义，压缩CSS的模式。配置<code>standard</code>就可以压缩CSS文件。<br>这时候，也许你会说，连CSS都可以帮忙压缩真是太强大了。而我个人就认为：未免管得太多了。</p>
-                    <p>更多配置选项，可以参考官方的<a href="https://github.com/jrburke/r.js/blob/master/build/example.build.js" target="_blank" rel="external">example.build.js</a>。</p>
-                    <h3 id="开始打包和优化"><a href="#开始打包和优化" class="headerlink" title="开始打包和优化"></a>开始打包和优化</h3><p>进入项目文件夹下，运行以下命令，就可以开始打包和优化了。</p>
-                    <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">node dev/assets/js/lib/r.js -o build.js</div></pre></td></tr></table></figure>
-                    <p>完成以后打开<code>build</code>文件夹中的<code>index-morden.html</code>, 跟原来的一样，没有变化。</p>
-                    <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">require</span>([<span class="string">'tipText'</span>, <span class="string">'global'</span>, <span class="string">'../../testRequire'</span>], <span class="function"><span class="keyword">function</span> (<span class="params">tipText, GLOBALVAR, test</span>) </span>&#123;</div><div class="line">	<span class="built_in">console</span>.log(GLOBALVAR);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
-                    <p>但其实这个时候已经不需要分别<code>require</code> <code>tipText</code>和<code>global</code>了，因为已经合并到<code>tipText</code>文件中，所以可以改成：</p>
-                    <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">require</span>([<span class="string">'tipText'</span>, <span class="string">'../../testRequire'</span>], <span class="function"><span class="keyword">function</span> (<span class="params">tipText, test</span>) </span>&#123;</div><div class="line">	<span class="built_in">console</span>.log(GLOBALVAR);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
-                    <p>打开控制台，刷新页面，依然可以见到log出来的<code>GLOBALVAR</code>对象。</p>
-                    <p>在开发者工具的<code>networks</code>查看<code>tipText.js</code>，可以见到其实源代码中的<code>tipText</code>和<code>global</code>的内容已经合并，并且压缩。</p>
-                    <h3 id="主观使用感受"><a href="#主观使用感受" class="headerlink" title="主观使用感受"></a>主观使用感受</h3><ol>
-                    <li>初学者极度不友好。无论是RequireJS本身，还是优化工具r.js，都需要各种繁琐的配置。</li>
-                    <li>没有简明清晰的说明文档。文档是很详尽，可惜我没有看明白。花了很多时间去搜索研究，极大地增加了学习成本。</li>
-                    <li>打包前后<code>require</code>的文件可能会变化。我把<code>tipText</code>和<code>global</code>合并了，还要到引用的地方改一下。（可能是还没有找到章法吧）</li>
-                    <li>研究到了最后，并没有预期中的效果那么好。（预期：各种配置？好吧，好好配置，不然机器怎么知道哪是哪呢？结果：怎么我都配好了，还是有浓重的不智能感？）</li>
-                </ol>
-
-                </div>
+                ${detail.content}
             </div>
         </div>
     </div>
