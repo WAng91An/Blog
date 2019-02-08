@@ -17,13 +17,13 @@ import com.wrq.pojo.Comment;
  */
 public interface CommentMapper {
 	//添加
-	public int saveComment(Comment comment);
+	int saveComment(Comment comment);
 	//修改
-	public int updateComment(Comment comment);
+	int updateComment(Comment comment);
 	//删除
-	public int deleteCommentById(@Param("id")Integer id);
+	int deleteCommentById(@Param("id")Integer id);
 	//查询单个
-	public Comment getCommentById(@Param("id")Integer id);
+	Comment getCommentById(@Param("id")Integer id);
 	//查询所有
-	public List<Comment> queryCommentAll(CommentVo commentVo);
+	List<Comment> queryCommentFirstLevel(@Param("blogId")Integer blogId);
 }

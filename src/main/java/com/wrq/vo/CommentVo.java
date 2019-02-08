@@ -1,80 +1,51 @@
 package com.wrq.vo;
 
-import com.wrq.pojo.Comment;
 
-/**
- * 
- * CommentVo<br/>
- * 创建人:mofeng<br/>
- * 时间：2018年9月26日-下午7:09:35 <br/>
- * @version 1.0.0<br/>
- * 
- */
-public class CommentVo extends Comment {
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Data;
 
-	private String orderBy;
-	private Integer status = 1;
-	private Integer isDelete = 0;
-	private Integer pageNo = 0;
-	private Integer pageSize = 10;
-	private String keyword;
-	private Integer filterId;
+import java.util.Date;
 
-	
+@Data
+public class CommentVo {
 
-	public String getOrderBy() {
-		return orderBy;
-	}
+	/* 评论id */
+	@JsonProperty("commentId")
+	private Integer id;
 
-	public void setOrderBy(String orderBy) {
-		this.orderBy = orderBy;
-	}
+	/* 评论用户id */
+	private Integer userId;
 
-	public Integer getStatus() {
-		return status;
-	}
+	/* 评论时间 */
+	private Date createTime;
 
-	public void setStatus(Integer status) {
-		this.status = status;
-	}
+	/* 评论用户IP地址 */
+	private String ip;
 
-	public Integer getIsDelete() {
-		return isDelete;
-	}
+	/* 评论内容 */
+	private String content;
 
-	public void setIsDelete(Integer isDelete) {
-		this.isDelete = isDelete;
-	}
+	/* 博客层级 */
+	private Integer parentId;
 
-	public Integer getPageNo() {
-		return pageNo;
-	}
+	/* 此评论回复者的id */
+	private String replayUserId;
 
-	public void setPageNo(Integer pageNo) {
-		this.pageNo = pageNo;
-	}
+	/* 此评论回复者的名字 */
+	private String replayUserName;
 
-	public Integer getPageSize() {
-		return pageSize;
-	}
+	/* 此评论回复者的头像 */
+	private String replayUserHeadPic;
 
-	public void setPageSize(Integer pageSize) {
-		this.pageSize = pageSize;
-	}
+	/* 评论发布状态 */
+	private String status;
 
-	public String getKeyword() {
-		return keyword;
-	}
+	/* 评论博客的Id */
+	private Integer blogId;
 
-	public void setKeyword(String keyword) {
-		this.keyword = keyword;
-	}
+	/* 评论者用户名 */
+	private String userName;
 
-	public Integer getFilterId() {
-		return filterId;
-	}
-
-	public void setFilterId(Integer filterId) {
-		this.filterId = filterId;
-	}
+	/* 评论者头像 */
+	private String headerPic;
 }

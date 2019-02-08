@@ -1,15 +1,6 @@
 package com.wrq.vo;
 
 import com.wrq.pojo.Category;
-
-/**
- * 
- * CategoryVo
- * 创建人:mofeng
- * 时间：2018年9月26日-下午7:09:35
- * @version 1.0.0
- * 
- */
 public class CategoryVo extends Category {
 
 	private String orderBy;

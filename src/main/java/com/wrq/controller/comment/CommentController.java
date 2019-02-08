@@ -2,77 +2,34 @@ package com.wrq.controller.comment;
 
 import javax.validation.Valid;
 
+import com.github.pagehelper.PageInfo;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import com.wrq.vo.CommentVo;
 import com.wrq.service.comment.ICommentService;
 import com.wrq.commons.ServerResponse;
 
-/**
- * todo:评论Controller控制器类
- * CommentController
- * 作者:王瑞乾 
- * 创建时间：2019年02月03日 16:00:08  
- * @version 1.0.0 
- *
- */
 @Controller
+@Slf4j
 public class CommentController {
 	
 	@Autowired
 	private ICommentService commentService;
 	
-	@GetMapping("/comment")
-	public String commentindex() {
-		return "comment/index";
+	@GetMapping("/comment/{id}")
+	@ResponseBody
+	public ServerResponse template(@PathVariable("id") Integer blogId, @RequestParam(value = "pageNum", defaultValue = "0", required = false)Integer pageNum ,
+								   @RequestParam(value = "pageSize", defaultValue = "10", required = false)Integer pageSize) {
+
+		log.info(" 请求了评论列表, 请求博客commentId = {}", blogId);
+
+		PageInfo<CommentVo> commentVoPageInfo = commentService.queryCommentFirstLevel(blogId, pageNum, pageSize);
+
+		return ServerResponse.createBySuccess(commentVoPageInfo);
 	}
 
-	@GetMapping("/comment/{id}")
-	public String commentdetail(@PathVariable("id") Integer id,ModelMap map) {
-		map.addAttribute("id", id);
-		return "comment/detail";
-	}
-	
-	
-	@PostMapping("/comment/template")
-	public String template(CommentVo commentVo,ModelMap map) {
-		ServerResponse serverResponse = commentService.queryCommentAll(commentVo);
-		map.addAttribute("pages", serverResponse.getData());
-		return "comment/template";
-	}
-	
-	
-	@ResponseBody
-	@GetMapping("/comment/get/{id}")
-	public ServerResponse getComment(@PathVariable("id") Integer id) {
-		return commentService.getCommentById(id);
-	}
-	
-	
-	@ResponseBody
-	@PostMapping("/comment/save")
-	public ServerResponse saveComment(@Valid CommentVo commentVo) {
-		return commentService.saveComment(commentVo);
-	}
-	
-	@ResponseBody
-	@PostMapping("/comment/update")
-	public ServerResponse updateComment(@Valid CommentVo commentVo) {
-		return commentService.updateComment(commentVo);
-	}
-	
-	
-	@ResponseBody
-	@PostMapping("/comment/delete/{id}")
-	public ServerResponse deleteComment(@PathVariable("id") Integer id) {
-		return commentService.deleteCommentById(id);
-	}
-	
 }

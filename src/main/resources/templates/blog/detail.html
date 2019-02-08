@@ -5,19 +5,29 @@
     <meta charset="UTF-8">
     <meta name="description" content="">
     <title>Keep It Simple Do It Well</title>
+    <link   rel="stylesheet" href="/css/comment.css">
     <#include "commons/header.html"/>
 </head>
 
 <body>
-<!-- Page Header -->
-<#include "detail/header.html"/>
+<div id="detail">
+    <!-- Page Header -->
+    <#include "detail/header.html"/>
 
-<!-- Page Article -->
+    <!-- Page Article -->
 
-<#include "detail/article.html"/>
+    <#include "detail/article.html"/>
 
-<!-- Footer -->
-<#include "commons/footer.html"/>
+    <!-- Page Comment -->
+    <#include "detail/comment.html"/>
+
+    <!-- Footer -->
+    <#include "commons/footer.html"/>
+</div>
+    <!--引入js-->
+    <#include "commons/js.html"/>
+
+    <script src="/js/comment/main.js"></script>
 
 </body>
 </html>

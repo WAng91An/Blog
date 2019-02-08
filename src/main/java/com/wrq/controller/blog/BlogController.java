@@ -50,9 +50,9 @@ public class BlogController {
 
 	/**
 	 * 根据 id 请求博客详情
-	 * @param id
-	 * @param map
-     * @return
+	 * @param id 博客的id
+	 * @param map ModelMap
+     * @return 博客详情
      */
 	@GetMapping("/blog/{id}")
 	public String blogDetail(@PathVariable("id") Integer id, ModelMap map) {

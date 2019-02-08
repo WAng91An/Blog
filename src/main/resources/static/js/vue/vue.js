@@ -4213,7 +4213,7 @@ function createComponent (
     Ctor = resolveAsyncComponent(asyncFactory, baseCtor, context);
     if (Ctor === undefined) {
       // return a placeholder node for async component, which is rendered
-      // as a comment node but preserves all the raw information for the node.
+      // as a detail node but preserves all the raw information for the node.
       // the information will be used for async server-rendering and hydration.
       return createAsyncPlaceholder(
         asyncFactory,
@@ -8297,7 +8297,7 @@ var Transition = {
       oldChild.data &&
       !isSameChild(child, oldChild) &&
       !isAsyncPlaceholder(oldChild) &&
-      // #6687 component root is a comment node
+      // #6687 component root is a detail node
       !(oldChild.componentInstance && oldChild.componentInstance._vnode.isComment)
     ) {
       // replace old child transition data with fresh one
@@ -8749,7 +8749,7 @@ var startTagOpen = new RegExp(("^<" + qnameCapture));
 var startTagClose = /^\s*(\/?)>/;
 var endTag = new RegExp(("^<\\/" + qnameCapture + "[^>]*>"));
 var doctype = /^<!DOCTYPE [^>]+>/i;
-// #7298: escape - to avoid being pased as HTML comment when inlined in page
+// #7298: escape - to avoid being pased as HTML detail when inlined in page
 var comment = /^<!\--/;
 var conditionalComment = /^<!\[/;
 

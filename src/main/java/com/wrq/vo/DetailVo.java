@@ -18,6 +18,8 @@ public class DetailVo {
 
     private String userName;
 
+    private String headPic;
+
     private Date createTime;
 
     private String img;

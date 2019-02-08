@@ -62,9 +62,9 @@ public class UserServiceImpl implements IUserService {
 
 	
 	@Override
-	public ServerResponse getUserById(Integer id) {
+	public User getUserById(Integer id) {
 		User user = userMapper.getUserById(id);
-		return user!=null?ServerResponse.createBySuccess(user):ServerResponse.createByError();
+		return user;
 	}
 	
 	

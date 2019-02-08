@@ -2,6 +2,7 @@ package com.wrq.controller.user;
 
 import javax.validation.Valid;
 
+import com.wrq.pojo.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -51,7 +52,7 @@ public class UserController {
 	
 	@ResponseBody
 	@GetMapping("/user/get/{id}")
-	public ServerResponse getUser(@PathVariable("id") Integer id) {
+	public User getUser(@PathVariable("id") Integer id) {
 		return userService.getUserById(id);
 	}
 	

@@ -1,6 +1,7 @@
 package com.wrq.service.user;
 
 import com.wrq.commons.ServerResponse;
+import com.wrq.pojo.User;
 import com.wrq.vo.UserVo;
 
 public interface IUserService {
@@ -11,7 +12,7 @@ public interface IUserService {
 	
 	ServerResponse deleteUserById(Integer id);
 	
-	ServerResponse getUserById(Integer id);
+	User getUserById(Integer id);
 	
 	ServerResponse queryUserAll(UserVo userVo);
 }

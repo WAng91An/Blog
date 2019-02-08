@@ -18,22 +18,14 @@
   		id,user_id,create_time,ip,content,parent_id,replay_userid,status,blog_id
   	</sql>
   	
-  	<select id="queryCommentAll" resultMap="BaseResultMap" parameterType="com.wrq.vo.CommentVo">
+  	<select id="queryCommentFirstLevel" resultType="com.wrq.pojo.Comment" parameterType="java.lang.Integer">
   		SELECT
 			<include refid="Base_Column_List"></include>
 		FROM
 			comment
 		<where>
-			 <if test="id!=null"> and id = #{id,jdbcType=INTEGER}</if>
-			 <if test="userId!=null"> and user_id = #{userId,jdbcType=INTEGER}</if>
-			 <if test="createTime!=null"> and create_time = now()</if>
-			 <if test="ip!=null and ip!=''"> and ip = #{ip,jdbcType=VARCHAR}</if>
-			 <if test="content!=null and content!=''"> and content = #{content,jdbcType=VARCHAR}</if>
-			 <if test="parentId!=null"> and parent_id = #{parentId,jdbcType=INTEGER}</if>
-			 <if test="replayUserid!=null"> and replay_userid = #{replayUserid,jdbcType=INTEGER}</if>
-			 <if test="status!=null"> and status = #{status,jdbcType=INTEGER}</if>
-			 <if test="blogId!=null"> and blog_id = #{blogId,jdbcType=INTEGER}</if>
-		</where>	
+			 blog_id = #{blogId,jdbcType=INTEGER} and parent_id = 0 and status = 1
+		</where>
   	</select>
   
   	<select id="getCommentById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >

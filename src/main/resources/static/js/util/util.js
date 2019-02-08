@@ -7,7 +7,7 @@ var util = {
         return conf.serverHost + path;
     },
     getUrlParam : function(name){
-        //baidu.com/product/list?keyword=1&page=2(获取1)
+        // baidu.com/product/list?keyword=1&page=2(获取1)
         var reg     = new RegExp('(^|&)' + name + '=([^&]*)(&|$)');
         var result 	= window.location.search.substr(1).match(reg);
         return result ? decodeURIComponent(result[2]) : null;

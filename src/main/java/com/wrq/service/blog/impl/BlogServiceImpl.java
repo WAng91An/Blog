@@ -67,6 +67,7 @@ public class BlogServiceImpl implements IBlogService  {
 		Integer userId = blogDetail.getUserId();
 		User user = userMapper.getUserById(userId);
 		blogDetail.setUserName(user.getUsername());
+		blogDetail.setHeadPic(user.getHeaderPic());
 		return blogDetail!=null?ServerResponse.createBySuccess("获取成功", blogDetail):ServerResponse.createByError("获取博客详情失败");
 	}
 
