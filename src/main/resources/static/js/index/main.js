@@ -77,7 +77,7 @@ var vue = new Vue({
         notHasPreviousPage: function () {
             // 当没有下一页的时候按钮禁用
             return !this.hasPreviousPage;
-        },
+        }
     },
     created: function () {
         this.getBlogInfo(1, util.pageSize());

@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 import java.util.Date;
+import java.util.List;
 
 @Data
 public class CommentVo {
@@ -28,14 +29,8 @@ public class CommentVo {
 	/* 博客层级 */
 	private Integer parentId;
 
-	/* 此评论回复者的id */
-	private String replayUserId;
-
-	/* 此评论回复者的名字 */
-	private String replayUserName;
-
-	/* 此评论回复者的头像 */
-	private String replayUserHeadPic;
+	/* 下级评论 */
+	private List<CommentVo> children;
 
 	/* 评论发布状态 */
 	private String status;

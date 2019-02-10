@@ -10,7 +10,6 @@ public class Comment {
     private String ip;
     private String content;
     private Integer parentId;
-    private Integer replayUserid;
     private Integer status;
     private Integer blogId;
     
@@ -18,7 +17,7 @@ public class Comment {
         super();
     }
     
-    public Comment(Integer id,Integer userId,Date createTime,String ip,String content,Integer parentId,Integer replayUserid,Integer status,Integer blogId) {
+    public Comment(Integer id,Integer userId,Date createTime,String ip,String content,Integer parentId,Integer status,Integer blogId) {
         super();
         this.id = id;
         this.userId = userId;
@@ -26,11 +25,10 @@ public class Comment {
         this.ip = ip;
         this.content = content;
         this.parentId = parentId;
-        this.replayUserid = replayUserid;
         this.status = status;
         this.blogId = blogId;
     }
-    
+
     public Integer getId() {
         return id;
     }
@@ -38,6 +36,7 @@ public class Comment {
     public void setId(Integer id) {
         this.id = id;
     }
+
     public Integer getUserId() {
         return userId;
     }
@@ -45,6 +44,7 @@ public class Comment {
     public void setUserId(Integer userId) {
         this.userId = userId;
     }
+
     public Date getCreateTime() {
         return createTime;
     }
@@ -52,6 +52,7 @@ public class Comment {
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
     }
+
     public String getIp() {
         return ip;
     }
@@ -59,6 +60,7 @@ public class Comment {
     public void setIp(String ip) {
         this.ip = ip;
     }
+
     public String getContent() {
         return content;
     }
@@ -66,6 +68,7 @@ public class Comment {
     public void setContent(String content) {
         this.content = content;
     }
+
     public Integer getParentId() {
         return parentId;
     }
@@ -73,13 +76,7 @@ public class Comment {
     public void setParentId(Integer parentId) {
         this.parentId = parentId;
     }
-    public Integer getReplayUserid() {
-        return replayUserid;
-    }
 
-    public void setReplayUserid(Integer replayUserid) {
-        this.replayUserid = replayUserid;
-    }
     public Integer getStatus() {
         return status;
     }
@@ -87,6 +84,7 @@ public class Comment {
     public void setStatus(Integer status) {
         this.status = status;
     }
+
     public Integer getBlogId() {
         return blogId;
     }
@@ -94,9 +92,9 @@ public class Comment {
     public void setBlogId(Integer blogId) {
         this.blogId = blogId;
     }
- 	
- 	public String toString(Integer id,Integer userId,Date createTime,String ip,String content,Integer parentId,Integer replayUserid,Integer status,Integer blogId) {
-        return "Comment:【this.id:"+id+",this.userId:"+userId+",this.createTime:"+createTime+",this.ip:"+ip+",this.content:"+content+",this.parentId:"+parentId+",this.replayUserid:"+replayUserid+",this.status:"+status+",this.blogId:"+blogId+"】";
+
+    public String toString(Integer id, Integer userId, Date createTime, String ip, String content, Integer parentId, Integer status, Integer blogId) {
+        return "Comment:【this.id:"+id+",this.userId:"+userId+",this.createTime:"+createTime+",this.ip:"+ip+",this.content:"+content+",this.parentId:"+parentId+",this.status:"+status+",this.blogId:"+blogId+"】";
     }
     
     public static class CommentBuilder{
@@ -107,16 +105,15 @@ public class Comment {
 	    private String ip;
 	    private String content;
 	    private Integer parentId;
-	    private Integer replayUserid;
 	    private Integer status;
 	    private Integer blogId;
 
  	    public String toString(){
- 	    	 return "Comment.CommentBuilder:【this.id:"+id+",this.userId:"+userId+",this.createTime:"+createTime+",this.ip:"+ip+",this.content:"+content+",this.parentId:"+parentId+",this.replayUserid:"+replayUserid+",this.status:"+status+",this.blogId:"+blogId+"】";
+ 	    	 return "Comment.CommentBuilder:【this.id:"+id+",this.userId:"+userId+",this.createTime:"+createTime+",this.ip:"+ip+",this.content:"+content+",this.parentId:"+parentId+",this.status:"+status+",this.blogId:"+blogId+"】";
  	    }
 
  	    public Comment build(){
- 	      return new Comment(id,userId,createTime,ip,content,parentId,replayUserid,status,blogId);
+ 	      return new Comment(id,userId,createTime,ip,content,parentId,status,blogId);
  	    }
 
  	    public CommentBuilder id(Integer id){
@@ -143,14 +140,9 @@ public class Comment {
  	      this.content = content;
  	      return this;
  	    }
- 	    
+
  	    public CommentBuilder parentId(Integer parentId){
  	      this.parentId = parentId;
- 	      return this;
- 	    }
- 	    
- 	    public CommentBuilder replayUserid(Integer replayUserid){
- 	      this.replayUserid = replayUserid;
  	      return this;
  	    }
  	    

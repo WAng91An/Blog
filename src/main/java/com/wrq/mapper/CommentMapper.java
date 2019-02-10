@@ -26,4 +26,6 @@ public interface CommentMapper {
 	Comment getCommentById(@Param("id")Integer id);
 	//查询所有
 	List<Comment> queryCommentFirstLevel(@Param("blogId")Integer blogId);
+
+	List<Comment> queryCommentByParentId(@Param("blogId")Integer blogId, @Param("parentId")Integer parentId);
 }
