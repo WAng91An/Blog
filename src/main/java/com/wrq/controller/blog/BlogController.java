@@ -57,9 +57,22 @@ public class BlogController {
 	@GetMapping("/blog/{id}")
 	public String blogDetail(@PathVariable("id") Integer id, ModelMap map) {
 		ServerResponse detail = blogService.getBlogDetailById(id);
-		log.info("请求了 /blog/31 ");
+		log.info("请求了 /blog/id ");
 		map.addAttribute("detail", detail.getData());
 		return "blog/detail";
+	}
+
+	/**
+	 * 博客详情: 返回 Json 数据
+	 * @param id 博客的id
+	 * @return 博客详情的Json数据
+     */
+	@GetMapping("/detail/{id}")
+	@ResponseBody
+	public ServerResponse detail(@PathVariable("id") Integer id) {
+		ServerResponse detail = blogService.getBlogDetailById(id);
+		log.info("请求了 /detail/id ");
+		return ServerResponse.createBySuccess(detail);
 	}
 	
 	
